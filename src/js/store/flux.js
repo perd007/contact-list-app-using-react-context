@@ -1,43 +1,36 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contacts: [],
 		},
 		actions: {
+			saluda: () => {
+				console.log("Hola que tal :)");
+			},
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
+			addContact: (params) => {
+				//obtenemos el store
 				const store = getStore();
+				//console.log("estoy dentro del action" + params.name)
+				//modificamos nuestro arreglo el store con el paremetro desforms 
+				setStore({ contacts: [...store.contacts, params] });
+				//console.log("en el flux  " + store.contacts)
+			},
+			//borrar contaco
+			deleteContact: (id) => {
+				const store = getStore();
+				//creamos un array nuevo sin el elemento que es igual al index qe nos paso
+				setStore({ contacts: store.contacts.filter((contacto, index) => id != index) });
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			},
+			editContact: (id, params) => {
+				const store = getStore();
+				//eliminamos
+				setStore({ contacts: store.contacts.filter((contacto, index) => id != index) });
+				//agregamos
+				setStore({ contacts: [...store.contacts, params] });
 			}
+
 		}
 	};
 };
