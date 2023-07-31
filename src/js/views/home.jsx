@@ -13,7 +13,7 @@ export const Home = () => {
 		<>
 			<div className="container text-center mt-5">
 				<h1 className="fst-italic ">My List Contact</h1>
-				<Link to="/form" ><button type="button" className="btn btn-primary">Add Contact</button></Link>
+				<Link to="/form" ><button type="button" className="btn btn-primary d-flex justify-content-start">Add Contact</button></Link>
 				{store.contacts.map((contacts, index) => {
 					return (
 						<div className="card d-flex flex-row  border border-primary mb-2" key={index} >
